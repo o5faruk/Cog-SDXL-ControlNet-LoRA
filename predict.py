@@ -255,13 +255,6 @@ class Predictor(BasePredictor):
         )
         return closest_dimensions
 
-    def image2canny(self, image):
-        image = np.array(image)
-        image = cv2.Canny(image, 100, 200)
-        image = image[:, :, None]
-        image = np.concatenate([image, image, image], axis=2)
-        return Image.fromarray(image)
-
     def run_safety_checker(self, image):
         safety_checker_input = self.feature_extractor(image, return_tensors="pt").to(
             "cuda"
@@ -359,7 +352,7 @@ class Predictor(BasePredictor):
         image = self.load_image(image)
         image, width, height = self.resize_image(image)
         print("txt2img mode")
-        sdxl_kwargs["image"] = self.image2canny(image)
+        sdxl_kwargs["image"] = image
         sdxl_kwargs["controlnet_conditioning_scale"] = condition_scale
         sdxl_kwargs["width"] = width
         sdxl_kwargs["height"] = height

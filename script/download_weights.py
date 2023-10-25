@@ -38,7 +38,7 @@ safety = StableDiffusionSafetyChecker.from_pretrained(
 safety.save_pretrained(SAFETY_CACHE)
 
 controlnet = ControlNetModel.from_pretrained(
-    "diffusers/controlnet-canny-sdxl-1.0",
-    torch_dtype=torch.float16
+    "thibaud/controlnet-openpose-sdxl-1.0", torch_dtype=torch.float16
 )
+
 controlnet.save_pretrained(CONTROL_CACHE)
